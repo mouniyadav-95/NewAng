@@ -1,0 +1,82 @@
+              <h1> Welcome to the registration form</h1>
+<form [formGroup]="angForm" (ngSubmit)="onSubmit()">
+
+  <label class="col-sm-3 col-form-label">Name : </label>
+  <div class="col-sm-7">
+        <input class="form-control" formControlName="name">
+    
+    <div *ngIf="angForm.controls['name'].invalid && (angForm.controls['name'].dirty || angForm.controls['name'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['name'].errors.required">
+        Name is required.
+      </div>
+    </div>
+  </div>
+
+    <br>
+
+    <label class="col-sm-3 col-form-label">Email : </label>
+    <div class="col-sm-7">
+          <input class="form-control" formControlName="email">
+      
+      <div *ngIf="angForm.controls['email'].invalid && (angForm.controls['email'].dirty || angForm.controls['email'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['email'].errors.required">
+          Email is required.
+        </div>
+      </div>
+    </div>
+  
+      <br>
+
+      <label class="col-sm-3 col-form-label">Role : </label>
+      <div class="col-sm-7">
+      <select formControlName="userrole">
+      <option disabled>Select Role</option>
+      <option>Choose Your Role</option>
+      <option *ngFor="let suit of roles">{{suit.viewValue}}</option>
+    </select>
+  </div>
+<br>
+     
+<label class="col-sm-3 col-form-label"> Department : </label>
+<div class="col-sm-7">
+    <select formControlName="userdept">
+        <option disabled>Select department</option>
+        <option>Choose Your Department</option>
+        <option *ngFor="let suit of departments">{{suit.viewValue}}</option>
+      </select> 
+    </div><br>
+
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Password</label>
+      <div class="col-sm-7">
+        <input type="password" class="form-control" formControlName='password' (keyup)="checkPassSame()">
+
+        <div *ngIf="angForm.controls?.password?.invalid && angForm.controls?.password.touched">
+          <p *ngIf="angForm.controls?.password?.errors.required" class="errorMsg">*This field is required.</p>
+          {{angForm.value.password}}
+        </div>
+      </div>
+    </div> <br>
+
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Confirm Password</label>
+      <div class="col-sm-7">
+        <input type="password" class="form-control" formControlName='confPass' (keyup)="checkPassSame()">
+
+        <div *ngIf="angForm.controls?.confPass?.invalid && angForm.controls?.confPass.touched">
+          <p *ngIf="angForm.controls?.confPass?.errors.required" class="errorMsg">*This field is required.</p>
+        </div>
+        <div *ngIf="passmsg != '' && !angForm.controls?.confPass?.errors?.required">
+          <p class="errorMsg">*{{passmsg}}</p>
+        </div>  
+      </div>
+    </div> <br>
+
+    <button>Submit</button> <br>
+    <nav>
+      <a routerLink="/login" class="btn btn-link" routerLinkActive="active">Login</a>
+  </nav>
+  <router-outlet></router-outlet>
+  </form>
+
+  <p >{{userCreate}}</p>
